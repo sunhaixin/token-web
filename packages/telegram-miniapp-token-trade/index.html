@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximun-scale=1.0"
+    />
+    <title>SEA TRADE</title>
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      window.addEventListener('load', () => {
+        document.addEventListener('touchstart', (e) => {
+          if (e.touches.length > 1) {
+            e.preventDefault()
+          }
+        })
+
+        document.addEventListener('gesturestart', (e) => {
+          e.preventDefault()
+        })
+      })
+    </script>
+  </body>
+</html>

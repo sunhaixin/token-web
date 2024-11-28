@@ -1,0 +1,13 @@
+{
+  "name": "token-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:miniapp": "pnpm --filter='@token-web/miniapp' run dev",
+    "build:miniapp": "pnpm --filter='@token-web/miniapp' run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
