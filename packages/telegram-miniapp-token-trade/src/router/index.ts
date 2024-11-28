@@ -3,6 +3,7 @@ import QuickTrade from '@/views/quick-trade.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
   routes: [
     {
       path: '/',
