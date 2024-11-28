@@ -134,6 +134,8 @@ export default {
     this.quickTradeSelect = this.quickBuyAmounts
 
     this.webApp = window.Telegram?.WebApp
+
+    console.log('---env', import.meta.env)
   },
 
   computed: {
