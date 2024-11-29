@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import QuickTrade from '@/views/quick-trade.vue'
+import AutoTrade from '@/views/auto-trade.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
@@ -7,13 +8,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: '快速交易',
       component: QuickTrade,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/auto-trade.vue'),
+      path: '/auto-trade',
+      name: '自动交易',
+      component: AutoTrade,
     },
   ],
 })

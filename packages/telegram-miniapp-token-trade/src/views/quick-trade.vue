@@ -26,6 +26,7 @@
       <div class="token-info-address" :class="!tokenInfo.symbol ? 'title' : ''">
         {{ tokenInfo.address }}
       </div>
+      <div class="token-info-tip" v-if="!tokenInfo.address">请粘贴或在下方输入 address</div>
     </div>
     <div class="token-info-paste" @click="pasteAddress">
       <img class="token-info-paste-img" src="@/assets/icon/paste.svg" />粘贴
@@ -34,7 +35,6 @@
 
   <div class="token-info-address-input">
     <input placeholder="请输入 address" @input="onAddressInputChange" />
-    <div class="setting-amount-input-unit" v-if="tradeType === 'sell'">%</div>
   </div>
 
   <div class="setting">
@@ -126,27 +126,30 @@ export default {
 
   mounted() {
     this.tokenInfo = {
-      address: '0xsadfasdfadfadfasdfasdfasdfs',
-      symbol: 'CHIILL',
-      name: 'just a chill dog',
+      address: '',
+      symbol: '',
+      name: '',
     }
 
     this.quickTradeSelect = this.quickBuyAmounts
-
     this.webApp = window.Telegram?.WebApp
-
-    console.log('---env', import.meta.env)
   },
 
   computed: {
     tradeButtonDisabled() {
-      return this.tradeType === 'buy' ? !this.setting.buy.amount : !this.setting.sell.percent
+      const noAmount =
+        this.tradeType === 'buy' ? !this.setting.buy.amount : !this.setting.sell.percent
+      const noAddress = !this.tokenInfo.address
+
+      return noAmount || noAddress
     },
   },
 
   watch: {
     tradeType() {
       this.amountInputValue = ''
+
+      this.setting = JSON.parse(JSON.stringify(initialSetting))
     },
     activeQuickBuyIndex(newValue) {
       if (newValue !== this.quickBuyAmounts.length - 1) {
@@ -236,7 +239,9 @@ export default {
     onAddressInputChange(e: any) {
       const value = e.target.value
 
-      this.tokenInfo.address = value
+      this.tokenInfo = {
+        address: value,
+      }
     },
 
     onAutoSellInputChange(e: any) {
@@ -250,6 +255,10 @@ export default {
     },
 
     onClickTradeButton() {
+      if (this.tradeButtonDisabled) {
+        return
+      }
+
       let cmd = ''
       let tradeText = ''
       let num = ''
@@ -270,14 +279,16 @@ export default {
         cmd = `/sell ${this.tokenInfo.address} ${percent}`
       }
 
+      const symbolText = this.tokenInfo.symbol ? ` ${this.tokenInfo.symbol}` : ''
+
       showConfirmDialog({
-        title: `确定是否${tradeText} ${num}`,
-        message: `${this.tokenInfo.address}`,
+        title: `是否${tradeText} ${num}${symbolText}`,
+        message: `address：${this.tokenInfo.address}`,
       })
         .then(() => {
           console.log(cmd)
 
-          this.webApp.sendData([cmd])
+          this.webApp.sendData(cmd)
         })
         .catch(() => {})
     },
