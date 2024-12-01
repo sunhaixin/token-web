@@ -1,4 +1,5 @@
 import './assets/main.css'
+import './assets/js/telegram-web-app.js'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
