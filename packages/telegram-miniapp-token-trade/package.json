@@ -13,9 +13,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@vant/auto-import-resolver": "^1.2.1",
     "less": "^4.2.0",
     "pinia": "^2.2.6",
+    "purgecss": "^7.0.2",
     "unplugin-auto-import": "^0.18.5",
     "unplugin-vue-components": "^0.27.4",
     "vant": "^4.9.9",
@@ -24,9 +24,12 @@
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.278",
+    "@mojojoejo/vite-plugin-purgecss": "^1.1.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/less": "^3.0.7",
     "@types/node": "^22.9.0",
+    "@vant/auto-import-resolver": "^1.2.1",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vue/eslint-config-prettier": "^10.1.0",
