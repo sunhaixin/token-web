@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import QuickTrade from '@/views/quick-trade.vue'
 import AutoTrade from '@/views/auto-trade.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
 
   routes: [
     {
