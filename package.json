@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:miniapp": "pnpm --filter='@token-web/miniapp' run dev",
+    "dev:miniapp": "NODE_ENV=production pnpm --filter='@token-web/miniapp' run dev",
     "build:miniapp": "pnpm --filter='@token-web/miniapp' run build"
   },
   "keywords": [],

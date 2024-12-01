@@ -3,7 +3,7 @@ import QuickTrade from '@/views/quick-trade.vue'
 import AutoTrade from '@/views/auto-trade.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.VITE_BASE_URL),
+  history: createWebHistory(),
 
   routes: [
     {
