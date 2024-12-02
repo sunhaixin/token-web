@@ -84,7 +84,7 @@
   <div class="auto-sell" v-if="tradeType === 'buy'">
     <div class="auto-sell-label">挂单卖出价：</div>
     <div class="auto-sell-input">
-      <input ref="autoTradeRef" type="number" inputmode="decimal" @input="onAutoSellInputChange" />
+      <input ref="autoSellRef" type="number" inputmode="decimal" @input="onAutoSellInputChange" />
       <div class="auto-sell-input-unit">$</div>
     </div>
   </div>
@@ -162,6 +162,7 @@ export default {
     tradeType() {
       this.amountInputValue = ''
       ;(this.$refs.autoTradeRef as any).value = ''
+      ;(this.$refs.autoSellRef as any).value = ''
 
       this.setting = JSON.parse(JSON.stringify(initialSetting))
     },
