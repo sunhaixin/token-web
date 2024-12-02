@@ -3,7 +3,7 @@
     <div class="top-trade-line">
       <div
         class="top-trade-type"
-        :class="{ active: tradeType === 'buy', disabled: true }"
+        :class="{ active: tradeType === 'buy' }"
         @click="onClickTradeType('buy')"
       >
         买入
@@ -74,9 +74,17 @@
   </div>
 
   <div class="auto-sell">
-    <div class="auto-sell-label">挂单价：</div>
+    <div class="auto-sell-label">{{ `挂单${tradeType === 'buy' ? '买入' : '卖出'}价` }}：</div>
     <div class="auto-sell-input">
       <input ref="autoTradeRef" type="number" inputmode="decimal" @input="onAutoTradeInputChange" />
+      <div class="auto-sell-input-unit">$</div>
+    </div>
+  </div>
+
+  <div class="auto-sell" v-if="tradeType === 'buy'">
+    <div class="auto-sell-label">挂单卖出价：</div>
+    <div class="auto-sell-input">
+      <input ref="autoTradeRef" type="number" inputmode="decimal" @input="onAutoSellInputChange" />
       <div class="auto-sell-input-unit">$</div>
     </div>
   </div>
@@ -91,6 +99,7 @@ const initialSetting = {
   buy: {
     amount: 0.5,
     autoBuyPrice: 0,
+    autoSellPrice: 0,
   },
   sell: {
     percent: 1,
@@ -175,10 +184,6 @@ export default {
 
   methods: {
     onClickTradeType(type: string) {
-      if (type === 'buy') {
-        return
-      }
-
       this.tradeType = type
 
       if (type === 'buy') {
@@ -264,6 +269,12 @@ export default {
       }
     },
 
+    onAutoSellInputChange(e: any) {
+      const value = e.target.value
+
+      this.setting.buy.autoSellPrice = +value
+    },
+
     onClickTradeButton() {
       if (this.tradeButtonDisabled) {
         return
@@ -277,6 +288,11 @@ export default {
         tradeText = '买入'
         num = this.setting.buy.amount + ' SOL'
         cmd = `/auto_buy ${this.tokenInfo.address} ${this.setting.buy.autoBuyPrice} ${this.setting.buy.amount}`
+
+        if (this.setting.buy.autoSellPrice) {
+          cmd += ` ${this.setting.buy.autoSellPrice}`
+          cmd += ' up'
+        }
       } else {
         tradeText = '卖出'
 
@@ -484,6 +500,7 @@ export default {
   color: #fff;
   text-align: center;
   user-select: none;
+  cursor: pointer;
 
   &.disabled {
     background-color: @background-color;

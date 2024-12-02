@@ -463,6 +463,7 @@ export default {
   color: #fff;
   text-align: center;
   user-select: none;
+  cursor: pointer;
 
   &.disabled {
     background-color: @background-color;
