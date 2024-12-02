@@ -82,7 +82,7 @@
   </div>
 
   <div class="trade-button" :class="{ disabled: tradeButtonDisabled }" @click="onClickTradeButton">
-    快速{{ tradeType === 'buy' ? '买入' : '卖出' }}
+    挂单{{ tradeType === 'buy' ? '买入' : '卖出' }}
   </div>
 </template>
 
@@ -276,13 +276,13 @@ export default {
       if (this.tradeType === 'buy') {
         tradeText = '买入'
         num = this.setting.buy.amount + ' SOL'
-        cmd = `/buy ${this.tokenInfo.address} ${this.setting.buy.autoBuyPrice} ${this.setting.buy.amount}`
+        cmd = `/auto_buy ${this.tokenInfo.address} ${this.setting.buy.autoBuyPrice} ${this.setting.buy.amount}`
       } else {
         tradeText = '卖出'
 
         const percent = this.setting.sell.percent * 100 + '%'
         num = percent
-        cmd = `/sell ${this.tokenInfo.address} ${this.setting.sell.autoSellPrice} ${percent}`
+        cmd = `/auto_sell ${this.tokenInfo.address} ${this.setting.sell.autoSellPrice} ${percent}`
       }
 
       const symbolText = this.tokenInfo.symbol ? ` ${this.tokenInfo.symbol}` : ''
@@ -324,6 +324,7 @@ export default {
     border-radius: @trade-type-rader-radius;
     font-size: 14px;
     cursor: pointer;
+    user-select: none;
 
     &.active {
       background-color: #333;
@@ -422,6 +423,7 @@ export default {
     background-color: @background-color;
     border-radius: @border-radius-common;
     border: 1px solid transparent;
+    user-select: none;
 
     &.active {
       border-color: #333;
@@ -481,6 +483,7 @@ export default {
   background-color: #333;
   color: #fff;
   text-align: center;
+  user-select: none;
 
   &.disabled {
     background-color: @background-color;

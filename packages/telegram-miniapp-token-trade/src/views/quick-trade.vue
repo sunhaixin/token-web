@@ -316,6 +316,7 @@ export default {
     border-radius: @trade-type-rader-radius;
     font-size: 14px;
     cursor: pointer;
+    user-select: none;
 
     &.active {
       background-color: #333;
@@ -328,7 +329,6 @@ export default {
 .token-info {
   display: flex;
   align-items: center;
-  // position: relative;
   padding: 8px 16px;
   min-height: 60px;
   background-color: @background-color;
@@ -462,6 +462,7 @@ export default {
   background-color: #333;
   color: #fff;
   text-align: center;
+  user-select: none;
 
   &.disabled {
     background-color: @background-color;
