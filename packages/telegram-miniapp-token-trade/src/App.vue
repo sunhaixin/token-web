@@ -16,12 +16,46 @@ export default {
   data() {
     return {
       name: '',
+      touchStartX: 0,
+      touchEndX: 0,
     }
   },
 
   setup() {
     const active = ref(0)
     return { active }
+  },
+
+  mounted() {
+    this.addHideInput()
+  },
+
+  unmounted() {
+    this.cancelHideInput()
+  },
+
+  methods: {
+    touchStart(e: any) {
+      this.touchStartX = e.touches[0].clientX
+    },
+
+    touchEnd(e: any) {
+      this.touchEndX = e.changedTouches[0].clientX
+
+      if (this.touchEndX - this.touchStartX > 50) {
+        ;(document.activeElement as any)?.blur()
+      }
+    },
+
+    addHideInput() {
+      document.addEventListener('touchstart', this.touchStart)
+      document.addEventListener('touchend', this.touchEnd)
+    },
+
+    cancelHideInput() {
+      document.removeEventListener('touchstart', this.touchStart)
+      document.removeEventListener('touchend', this.touchEnd)
+    },
   },
 }
 </script>
